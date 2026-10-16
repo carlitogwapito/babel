@@ -27,7 +27,7 @@ escapes: dict[str, str] = {'b': '\b', 'f': '\f', 'n': '\n', 'r': '\r', 't': '\t'
 name_re = re.compile(r'[\w$_][\w\d$_]*', re.UNICODE)
 dotted_name_re = re.compile(r'[\w$_][\w\d$_.]*[\w\d$_.]', re.UNICODE)
 division_re = re.compile(r'/=?')
-regex_re = re.compile(r'/(?:[^/\\]*(?:\\.[^/\\]*)*)/[a-zA-Z]*', re.DOTALL)
+regex_re = re.compile(r'/(?:[^/\\\n]*(?:\\.[^/\\\n]*)*)/[a-zA-Z]*')
 line_re = re.compile(r'(\r\n|\n|\r)')
 line_join_re = re.compile(r'\\' + line_re.pattern)
 uni_escape_re = re.compile(r'[a-fA-F0-9]{1,4}')

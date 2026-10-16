@@ -123,3 +123,14 @@ def test_jsx():
         ('jsx_tag', '</comp2', 8),
         ('operator', '>', 8),
     ]
+
+
+def test_regexp_literal_cannot_span_lines():
+    # A JS regex literal may not contain line terminators; the fallback
+    # regex match must stop at the end of the line (issue #640).
+    tokens = list(
+        jslexer.tokenize('alert(gettext("x"));\nvar e = />/g;\nalert(gettext("y"));'),
+    )
+    assert ('string', '"y"', 3) in tokens
+    for kind, value, _lineno in tokens:
+        assert "\n" not in value, f"{kind} token spans lines: {value!r}"
